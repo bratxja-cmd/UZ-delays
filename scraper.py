@@ -42,15 +42,17 @@
     тепер можуть жити кілька рейсів одночасно; кожен рядок табло
     зіставляється з найсхожішим відомим рейсом.
   * Назви станцій у ключі нормалізуються (регістр, варіанти апострофа).
-  * ЗЧЕПЛЕНІ СКЛАДИ. Потяги, що в одному знімку мають однаковий плановий
-    час щонайменше на двох спільних станціях, — це один фізичний склад.
-    Колонка coupled_group (наприклад «3/4+31/32») дозволяє не рахувати
-    такий склад двічі.
+  * ЗЧЕПЛЕНІ СКЛАДИ. Колонка coupled_group — список ПРЯМИХ партнерів по
+    складу (наприклад «3/4;5/6»): потягів, що мають однаковий плановий час
+    щонайменше на двох спільних станціях. Ланцюжки не об'єднуються, бо
+    склади діляться посеред маршруту (31/32 їде з 5/6 до Дніпра, а далі
+    з 3/4). Кожен потяг лишається окремим рядком.
 """
 
 import csv
 import json
 import os
+import re
 import sys
 import hashlib
 import tempfile
@@ -421,51 +423,49 @@ def train_sort_key(number):
     return (int(head) if head.isdigit() else 10**9, number)
 
 
-def coupled_groups(rows):
+def coupled_partners(rows):
     """
-    Зчеплені склади: рядки з однаковим плановим часом щонайменше на двох
-    спільних станціях — це один фізичний склад під різними номерами.
-    Повертає мітку групи для кожного рядка: «3/4+31/32» або власний номер.
+    Прямі партнери по складу. Два потяги в одному знімку, що мають однаковий
+    плановий час щонайменше на двох спільних станціях, їдуть одним складом
+    хоча б на частині маршруту.
+
+    Повертає для кожного рядка список ПРЯМИХ партнерів без нього самого,
+    наприклад «3/4;5/6». Ланцюжки свідомо не об'єднуються: якщо 31/32 їде
+    з 5/6 до Дніпра, а далі з 3/4, то 5/6 і 3/4 між собою НЕ пов'язані —
+    це два різні склади.
     """
-    n = len(rows)
-    parent = list(range(n))
-
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-
-    signatures = []
-    for row in rows:
-        sig = {
+    sigs = [
+        {
             (norm_key(st["station"]), st["scheduled"])
             for st in row["stops"]
             if not is_blank(st["scheduled"])
         }
-        signatures.append(sig)
-
+        for row in rows
+    ]
+    partners = [set() for _ in rows]
+    n = len(rows)
     for i in range(n):
-        if len(signatures[i]) < 2:
+        if len(sigs[i]) < 2:
             continue
         for j in range(i + 1, n):
-            if rows[i]["train_number"] == rows[j]["train_number"]:
-                continue  # той самий потяг (інша доба) — не зчеплення
-            if len(signatures[i] & signatures[j]) >= 2:
-                parent[find(i)] = find(j)
-
-    members = {}
-    for i in range(n):
-        members.setdefault(find(i), set()).add(rows[i]["train_number"])
-    return [
-        "+".join(sorted(members[find(i)], key=train_sort_key))
-        for i in range(n)
-    ]
+            a, b = rows[i]["train_number"], rows[j]["train_number"]
+            if a == b:
+                continue  # той самий потяг іншої доби — не зчеплення
+            if len(sigs[i] & sigs[j]) >= 2:
+                partners[i].add(b)
+                partners[j].add(a)
+    return [";".join(sorted(p, key=train_sort_key)) for p in partners]
 
 
-def merge_groups(old, new):
-    nums = set(filter(None, (old or "").split("+"))) | set(filter(None, (new or "").split("+")))
-    return "+".join(sorted(nums, key=train_sort_key))
+def merge_partners(old, new, self_number):
+    """
+    Об'єднує партнерів за весь час рейсу. Розуміє і старий формат мітки
+    («5/6+31/32», де був і сам потяг), і новий («31/32;85/86»).
+    """
+    def parse(value):
+        return {x.strip() for x in re.split(r"[;+]", value or "") if x.strip()}
+    nums = (parse(old) | parse(new)) - {self_number}
+    return ";".join(sorted(nums, key=train_sort_key))
 
 
 def is_blank(value):
@@ -756,10 +756,9 @@ def main():
     snap_rows, stop_rows = [], []
     seen_instances = set()
 
-    # Мітки зчеплених складів для поточного знімка
-    groups = coupled_groups(kept)
-    for r, g in zip(kept, groups):
-        r["coupled_group"] = g
+    # Прямі партнери по складу для поточного знімка
+    for r, p in zip(kept, coupled_partners(kept)):
+        r["coupled_group"] = p
 
     # Групуємо рядки за ключем треку і зіставляємо з відомими рейсами
     rows_by_key = {}
@@ -851,7 +850,7 @@ def main():
                 "station_from": r["station_from"],
                 "station_to": r["station_to"],
                 "match_type": r["match_type"],
-                "coupled_group": r["coupled_group"],
+                "coupled_group": merge_partners("", r["coupled_group"], r["train_number"]),
                 "first_seen_kyiv": ts,
                 "last_seen_kyiv": ts,
                 "n_seen": 1,
@@ -896,7 +895,9 @@ def main():
                 "station_to": r["station_to"] or trip.get("station_to", ""),
                 # дата з'являється не завжди — порожня не затирає відому
                 "departure_date": r["departure_date"] or trip.get("departure_date", ""),
-                "coupled_group": merge_groups(trip.get("coupled_group"), r["coupled_group"]),
+                "coupled_group": merge_partners(
+                    trip.get("coupled_group"), r["coupled_group"], r["train_number"]
+                ),
                 "finished": 0,
                 "finished_at_kyiv": "",
                 "final_delay_min": "",

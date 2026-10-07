@@ -4,7 +4,7 @@
 Збір даних про затримки потягів з табло «Що з моїм поїздом?» АТ «Укрзалізниця».
 Джерело: https://uz-vezemo.uz.gov.ua/delayform
 
-Версія 6. Зміни проти першої:
+Версія 7. Зміни проти першої:
   * РЕЙСИ-ПРИМІРНИКИ (instance_id). Той самий номер потяга на тому самому
     маршруті їздить щодня, а дата відправлення на сайті показується не
     завжди. Тому новий примірник визначається не датою, а трьома ознаками:
@@ -35,6 +35,17 @@
     станції далі. У stops_latest факт (після проходження) і прогноз (до
     проходження) тепер у різних колонках, з віком останнього прогнозу.
     У trips додано final_delay_fact_min і max_dev_fact_min — лише факти.
+  * НОВА МОДЕЛЬ ІДЕНТИЧНОСТІ. Ключ — лише номер і станція відправлення.
+    Дата відправлення і кінцева станція з ключа прибрані: саме їх УЗ змінює
+    посеред рейсу (дата з'являється при запізненні понад добу, «Варшава»
+    стає «Варшава Заходня»), і рейс розпадався надвоє. Під одним ключем
+    тепер можуть жити кілька рейсів одночасно; кожен рядок табло
+    зіставляється з найсхожішим відомим рейсом.
+  * Назви станцій у ключі нормалізуються (регістр, варіанти апострофа).
+  * ЗЧЕПЛЕНІ СКЛАДИ. Потяги, що в одному знімку мають однаковий плановий
+    час щонайменше на двох спільних станціях, — це один фізичний склад.
+    Колонка coupled_group (наприклад «3/4+31/32») дозволяє не рахувати
+    такий склад двічі.
 """
 
 import csv
@@ -79,7 +90,7 @@ WATCH = [
 KEEP_ALL = True
 
 # --- параметри визначення нового примірника рейсу
-GAP_HOURS = 4          # зник із табло довше, ніж на стільки годин -> новий рейс
+GAP_HOURS = 5          # зник із табло довше, ніж на стільки годин -> новий рейс
 DELAY_DROP_MIN = 90    # затримка впала більше ніж на стільки хвилин -> новий рейс
 ROUTE_RESET_MIN = 3    # на стільки станцій має «відкотитись» маршрут -> новий рейс
 RETENTION_HOURS = 60   # скільки тримати в пам'яті рейси, яких зараз немає в табло
@@ -112,6 +123,17 @@ def norm(text):
         return ""
     text = text.replace("\xa0", " ").replace("\u2192", " ").replace("→", " ")
     return " ".join(text.split()).upper()
+
+
+APOSTROPHES = ("\u2019", "\u02bc", "\u2018", "`", "\u00b4", "\u2032")
+
+
+def norm_key(text):
+    """Нормалізація для ключа: регістр, пробіли, усі варіанти апострофа -> '."""
+    text = norm(text)
+    for a in APOSTROPHES:
+        text = text.replace(a, "'")
+    return text
 
 
 def parse_hm(text):
@@ -249,7 +271,9 @@ def parse_row(tr):
         "passed_count": passed_count,
         "match_type": match_type,
         "stops": stops,
-        "trip_key": "|".join([train_number, station_from, station_to, dep_date]),
+        # Ключ ТРЕКУ: лише номер і станція відправлення. Дата й кінцева
+        # станція свідомо не входять — УЗ змінює їх посеред рейсу.
+        "trip_key": f"{train_number}|{norm_key(station_from)}",
     }
 
 
@@ -278,6 +302,13 @@ def is_new_instance(prev, row, now_epoch):
     """
     if prev is None:
         return True, "first_seen", 0
+
+    # Різні дати відправлення — гарантовано різні рейси. Якщо дата є лише
+    # з одного боку, це не суперечність: УЗ показує дату не завжди.
+    prev_date = prev.get("departure_date") or ""
+    cur_date = row.get("departure_date") or ""
+    if prev_date and cur_date and prev_date != cur_date:
+        return True, f"date_{prev_date}->{cur_date}", 0
 
     missed = as_int(prev.get("missed_runs"), 0) or 0
     absent_since = float(prev.get("absent_since") or 0)
@@ -311,6 +342,130 @@ def is_new_instance(prev, row, now_epoch):
     # що ідентичність спирається на пропущений період.
     run_gap_h = (now_epoch - float(prev.get("last_seen_epoch") or 0)) / 3600.0
     return False, "", 1 if run_gap_h >= GAP_HOURS else 0
+
+
+# ---------------------------------------------- ЗІСТАВЛЕННЯ РЯДКІВ З РЕЙСАМИ
+
+
+def match_cost(inst, row, now_epoch):
+    """
+    Наскільки рядок табло схожий на відомий рейс. None — несумісні.
+    Менше значення = краще.
+    """
+    is_new, _, _ = is_new_instance(inst, row, now_epoch)
+    if is_new:
+        return None
+    cost = 0.0
+    d_prev, d_cur = inst.get("delay_min"), row["delay_min"]
+    if d_prev is not None and d_cur is not None:
+        cost += abs(d_prev - d_cur)
+    # прогрес: рейс не може «розпройти» станції
+    prev_stops = as_int(inst.get("n_stops"))
+    prev_passed = as_int(inst.get("passed_count"))
+    if row["n_stops"] and prev_stops == row["n_stops"] and prev_passed is not None:
+        cost += 30 * max(0, prev_passed - row["passed_count"])
+    # однакова дата відправлення — найсильніша ознака того самого рейсу
+    if inst.get("departure_date") and inst.get("departure_date") == row["departure_date"]:
+        cost -= 1000
+    return cost
+
+
+def assign_rows(rows_by_key, tracks, now_epoch):
+    """
+    Для кожного ключа зіставляє рядки табло з відомими рейсами.
+    Повертає список (row, inst_state або None, причина, after_gap).
+    Жадібне призначення за зростанням «вартості»: кожен рейс отримує
+    щонайбільше один рядок, кожен рядок — щонайбільше один рейс.
+    """
+    result = []
+    for key, rows in rows_by_key.items():
+        insts = tracks.get(key, [])
+        pairs = []
+        for ri, row in enumerate(rows):
+            for si, inst in enumerate(insts):
+                c = match_cost(inst, row, now_epoch)
+                if c is not None:
+                    pairs.append((c, ri, si))
+        pairs.sort()
+        row_to_inst, used_insts = {}, set()
+        for c, ri, si in pairs:
+            if ri in row_to_inst or si in used_insts:
+                continue
+            row_to_inst[ri] = si
+            used_insts.add(si)
+
+        # найсвіжіший відомий рейс — для пояснення, чому рядок визнано новим
+        latest = max(insts, key=lambda x: float(x.get("last_seen_epoch") or 0)) if insts else None
+
+        for ri, row in enumerate(rows):
+            if ri in row_to_inst:
+                inst = insts[row_to_inst[ri]]
+                _, _, after_gap = is_new_instance(inst, row, now_epoch)
+                result.append((row, inst, "", after_gap))
+            else:
+                if latest is None:
+                    reason = "first_seen"
+                elif insts.index(latest) in used_insts:
+                    # найсвіжіший рейс уже зайнятий іншим рядком:
+                    # це паралельний примірник того ж потяга
+                    reason = "parallel_instance"
+                else:
+                    _, reason, _ = is_new_instance(latest, row, now_epoch)
+                    reason = reason or "unmatched"
+                result.append((row, None, reason, 0))
+    return result
+
+
+def train_sort_key(number):
+    head = number.split("/")[0]
+    return (int(head) if head.isdigit() else 10**9, number)
+
+
+def coupled_groups(rows):
+    """
+    Зчеплені склади: рядки з однаковим плановим часом щонайменше на двох
+    спільних станціях — це один фізичний склад під різними номерами.
+    Повертає мітку групи для кожного рядка: «3/4+31/32» або власний номер.
+    """
+    n = len(rows)
+    parent = list(range(n))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    signatures = []
+    for row in rows:
+        sig = {
+            (norm_key(st["station"]), st["scheduled"])
+            for st in row["stops"]
+            if not is_blank(st["scheduled"])
+        }
+        signatures.append(sig)
+
+    for i in range(n):
+        if len(signatures[i]) < 2:
+            continue
+        for j in range(i + 1, n):
+            if rows[i]["train_number"] == rows[j]["train_number"]:
+                continue  # той самий потяг (інша доба) — не зчеплення
+            if len(signatures[i] & signatures[j]) >= 2:
+                parent[find(i)] = find(j)
+
+    members = {}
+    for i in range(n):
+        members.setdefault(find(i), set()).add(rows[i]["train_number"])
+    return [
+        "+".join(sorted(members[find(i)], key=train_sort_key))
+        for i in range(n)
+    ]
+
+
+def merge_groups(old, new):
+    nums = set(filter(None, (old or "").split("+"))) | set(filter(None, (new or "").split("+")))
+    return "+".join(sorted(nums, key=train_sort_key))
 
 
 def is_blank(value):
@@ -420,7 +575,8 @@ SNAP_FIELDS = [
     "snapshot_ts_kyiv", "instance_id", "trip_key", "train_number",
     "departure_date", "station_from", "station_to", "delay_min",
     "forecast_arrival", "planned_arrival", "status", "reliability", "reason",
-    "match_type", "has_route", "n_stops", "passed_count", "page_updated",
+    "match_type", "coupled_group", "has_route", "n_stops", "passed_count",
+    "page_updated",
 ]
 
 STOP_FIELDS = [
@@ -430,7 +586,7 @@ STOP_FIELDS = [
 
 TRIP_FIELDS = [
     "instance_id", "trip_key", "train_number", "departure_date",
-    "station_from", "station_to", "match_type", "first_seen_kyiv",
+    "station_from", "station_to", "match_type", "coupled_group", "first_seen_kyiv",
     "last_seen_kyiv", "n_seen", "last_delay_min", "max_delay_min",
     "min_delay_min", "last_status", "last_reliability", "last_reason",
     "n_stops", "passed_count", "last_stop_passed", "finished",
@@ -535,12 +691,16 @@ def load_state():
         try:
             with open(STATE_JSON, encoding="utf-8") as f:
                 data = json.load(f)
-            if isinstance(data, dict) and "trips" in data:
+            if isinstance(data, dict) and "tracks" in data:
                 data.setdefault("last_run_epoch", 0)
                 return data
+            if isinstance(data, dict):
+                # стан старої версії несумісний: починаємо з нуля,
+                # але зберігаємо час попереднього запуску
+                return {"tracks": {}, "last_run_epoch": data.get("last_run_epoch", 0)}
         except Exception:
             pass
-    return {"trips": {}, "last_run_epoch": 0}
+    return {"tracks": {}, "last_run_epoch": 0}
 
 
 def save_state(state):
@@ -585,12 +745,8 @@ def main():
     kept = [r for r in rows if KEEP_ALL or r["match_type"]]
     run["rows_kept"] = len(kept)
 
-    # Дублікати в межах одного зрізу (той самий номер і маршрут двічі)
-    # розрізняємо за стабільною ознакою, а не за порядком рядків на сторінці:
-    # порядок може змінитись між запусками і переплутати два різні рейси.
-    base_counts = Counter(r["trip_key"] for r in kept)
-
     state = load_state()
+    tracks = state["tracks"]
     prev_run_epoch = float(state.get("last_run_epoch") or 0)
     if prev_run_epoch:
         run["gap_since_prev_run_min"] = round((now_epoch - prev_run_epoch) / 60)
@@ -598,41 +754,38 @@ def main():
     trips = read_trips()
     stops_latest = read_stops_latest()
     snap_rows, stop_rows = [], []
-    seen_now = set()
     seen_instances = set()
 
+    # Мітки зчеплених складів для поточного знімка
+    groups = coupled_groups(kept)
+    for r, g in zip(kept, groups):
+        r["coupled_group"] = g
+
+    # Групуємо рядки за ключем треку і зіставляємо з відомими рейсами
+    rows_by_key = {}
     for r in kept:
+        rows_by_key.setdefault(r["trip_key"], []).append(r)
+    assignments = assign_rows(rows_by_key, tracks, now_epoch)
+
+    matched_inst_ids = set()
+
+    for r, inst, reason, after_gap in assignments:
         key = r["trip_key"]
-
-        if base_counts[key] > 1:
-            tag = (
-                (r["stops"][0]["station"] if r["stops"] else "")
-                or r["planned_arrival"]
-                or r["forecast_arrival"]
-                or ""
-            )
-            key = f"{key}#{tag}"
-
-        # якщо навіть так ключі збіглись — розводимо їх примусово
-        while key in seen_now:
-            key += "#"
-        r["trip_key"] = key
-        seen_now.add(key)
-
-        prev = state["trips"].get(key)
-        new_inst, reason, after_gap = is_new_instance(prev, r, now_epoch)
+        new_inst = inst is None
 
         if new_inst:
             instance_id = make_instance_id(key, now)
-            # страховка: якщо такий id вже існує (два примірники в межах
-            # однієї хвилини), робимо його унікальним
-            while instance_id in trips:
+            while instance_id in trips or instance_id in seen_instances:
                 instance_id += "b"
             run["new_instances"] += 1
+            inst = {"instance_id": instance_id}
+            tracks.setdefault(key, []).append(inst)
         else:
-            instance_id = prev.get("instance_id") or make_instance_id(key, now)
+            instance_id = inst["instance_id"]
 
         seen_instances.add(instance_id)
+        matched_inst_ids.add(instance_id)
+        prev = None if new_inst else dict(inst)
 
         main_fingerprint = digest([
             r["delay_min"], r["forecast_arrival"], r["planned_arrival"],
@@ -648,8 +801,7 @@ def main():
             snap["has_route"] = int(r["has_route"])
             snap_rows.append(snap)
 
-        # ---- станції: в сирий архів пишемо ЛИШЕ ті, що справді змінились,
-        #      а не весь маршрут щоразу
+        # ---- станції: в сирий архів пишемо ЛИШЕ ті, що справді змінились
         prev_stop_hashes = (prev or {}).get("stop_hashes") or {}
         stop_hashes = {}
         for st in r["stops"]:
@@ -671,7 +823,6 @@ def main():
                     "is_watched": int(matches_watch(norm(st["station"]))),
                 })
 
-            # ---- зведена таблиця станцій: останнє ВІДОМЕ значення
             latest_key = (instance_id, seq_key)
             stops_latest[latest_key] = merge_stop(
                 stops_latest.get(latest_key), st, instance_id, key, r, ts
@@ -683,14 +834,13 @@ def main():
             if st["passed"] and st["dev_min"] is not None
         ]
         cur_max_fact = max(fact_devs) if fact_devs else None
-
-        # фактична затримка прибуття — лише коли кінцева вже пройдена
         cur_final_fact = None
         if r["stops"] and r["stops"][-1]["passed"] and r["stops"][-1]["dev_min"] is not None:
             cur_final_fact = r["stops"][-1]["dev_min"]
 
         # ---- зведена таблиця: рядок на ПРИМІРНИК рейсу
         delay = r["delay_min"]
+        last_stop_passed = 1 if (r["n_stops"] and r["passed_count"] >= r["n_stops"]) else 0
         trip = trips.get(instance_id)
         if trip is None:
             trips[instance_id] = {
@@ -701,6 +851,7 @@ def main():
                 "station_from": r["station_from"],
                 "station_to": r["station_to"],
                 "match_type": r["match_type"],
+                "coupled_group": r["coupled_group"],
                 "first_seen_kyiv": ts,
                 "last_seen_kyiv": ts,
                 "n_seen": 1,
@@ -712,7 +863,7 @@ def main():
                 "last_reason": r["reason"],
                 "n_stops": r["n_stops"],
                 "passed_count": r["passed_count"],
-                "last_stop_passed": 1 if (r["n_stops"] and r["passed_count"] >= r["n_stops"]) else 0,
+                "last_stop_passed": last_stop_passed,
                 "finished": 0,
                 "finished_at_kyiv": "",
                 "final_delay_min": "",
@@ -738,10 +889,14 @@ def main():
                 "last_reliability": r["reliability"],
                 "last_reason": r["reason"],
                 "n_stops": r["n_stops"],
-                "match_type": r["match_type"],
+                "match_type": r["match_type"] or trip.get("match_type", ""),
                 "passed_count": r["passed_count"],
-                "last_stop_passed": 1 if (r["n_stops"] and r["passed_count"] >= r["n_stops"]) else 0,
-                # рейс знову в табло -> він не завершений
+                "last_stop_passed": last_stop_passed,
+                # кінцева станція могла змінити назву — тримаємо останню
+                "station_to": r["station_to"] or trip.get("station_to", ""),
+                # дата з'являється не завжди — порожня не затирає відому
+                "departure_date": r["departure_date"] or trip.get("departure_date", ""),
+                "coupled_group": merge_groups(trip.get("coupled_group"), r["coupled_group"]),
                 "finished": 0,
                 "finished_at_kyiv": "",
                 "final_delay_min": "",
@@ -749,19 +904,19 @@ def main():
                     as_int(trip.get("after_monitoring_gap"), 0) or 0, after_gap
                 ),
             })
-
             prev_fact_max = as_int(trip.get("max_dev_fact_min"))
             if cur_max_fact is not None:
                 trip["max_dev_fact_min"] = (
                     cur_max_fact if prev_fact_max is None
                     else max(prev_fact_max, cur_max_fact)
                 )
-            # факт прибуття: порожнє значення НЕ затирає вже зафіксований
             if cur_final_fact is not None:
                 trip["final_delay_fact_min"] = cur_final_fact
 
-        state["trips"][key] = {
+        # ---- стан рейсу в пам'яті
+        inst.update({
             "instance_id": instance_id,
+            "departure_date": r["departure_date"] or inst.get("departure_date", ""),
             "last_seen_epoch": now_epoch,
             "main": main_fingerprint,
             "stop_hashes": stop_hashes,
@@ -770,54 +925,51 @@ def main():
             "n_stops": r["n_stops"],
             "missed_runs": 0,
             "absent_since": 0,
-        }
+        })
 
-    # прибираємо з пам'яті рейси, яких давно немає в табло
+    # ---- рейси з пам'яті, яких НЕ БУЛО в цьому запуску: спостережена відсутність
+    for insts in tracks.values():
+        for inst in insts:
+            if inst.get("instance_id") in matched_inst_ids:
+                continue
+            inst["missed_runs"] = (as_int(inst.get("missed_runs"), 0) or 0) + 1
+            if not inst.get("absent_since"):
+                inst["absent_since"] = now_epoch
+
+    # ---- прибираємо з пам'яті рейси, яких давно немає в табло
     cutoff = now_epoch - RETENTION_HOURS * 3600
-    state["trips"] = {
-        k: v for k, v in state["trips"].items()
-        if float(v.get("last_seen_epoch") or 0) >= cutoff
+    for key in list(tracks):
+        tracks[key] = [
+            i for i in tracks[key]
+            if float(i.get("last_seen_epoch") or 0) >= cutoff
+        ]
+        if not tracks[key]:
+            del tracks[key]
+
+    # ---- завершення: лише після MISSED_RUNS_TO_FINISH запусків поспіль без рейсу.
+    # Час завершення — момент ПЕРШОЇ відсутності.
+    absent_by_instance = {
+        i["instance_id"]: i for insts in tracks.values() for i in insts
+        if i.get("instance_id")
     }
-
-    # ---- рейси, яких НЕ БУЛО в цьому запуску: рахуємо спостережену відсутність
-    for trip_key_state, st in state["trips"].items():
-        if trip_key_state in seen_now:
-            continue
-        st["missed_runs"] = (as_int(st.get("missed_runs"), 0) or 0) + 1
-        if not st.get("absent_since"):
-            st["absent_since"] = now_epoch
-
-    # ---- завершеними позначаємо лише після MISSED_RUNS_TO_FINISH запусків
-    # поспіль без рейсу. Час завершення — момент ПЕРШОЇ відсутності, а не
-    # поточний: так він не зміщується на тривалість паузи в моніторингу.
-    absent_by_instance = {}
-    for st in state["trips"].values():
-        inst = st.get("instance_id")
-        if inst:
-            absent_by_instance[inst] = st
-
     for inst_id, trip in trips.items():
         if inst_id in seen_instances:
             continue
         if as_int(trip.get("finished"), 0):
             continue
-
         st = absent_by_instance.get(inst_id)
         if st is None:
-            # рейс випав із пам'яті (давній) — завершуємо як є
             missed = MISSED_RUNS_TO_FINISH
             absent_ts = ts
         else:
             missed = as_int(st.get("missed_runs"), 0) or 0
             absent_epoch = float(st.get("absent_since") or 0)
             absent_ts = (
-                datetime.fromtimestamp(absent_epoch, KYIV).strftime("%Y-%m-%d %H:%M:%S")
+                datetime.fromtimestamp(absent_epoch, KYIV).strftime(TS_FMT)
                 if absent_epoch else ts
             )
-
         if missed < MISSED_RUNS_TO_FINISH:
             continue
-
         trip["finished"] = 1
         trip["finished_at_kyiv"] = absent_ts
         trip["final_delay_min"] = trip.get("last_delay_min", "")

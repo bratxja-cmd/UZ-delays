@@ -1,0 +1,63 @@
+name: scrape-uz-delays
+
+on:
+  schedule:
+    # Кожні 15 хв, зі зміщенням від круглих значень: на "0", "15", "30", "45"
+    # навантаження на GitHub найбільше і запуск найчастіше пропускається.
+    # Репозиторій публічний, тому хвилини Actions безлімітні.
+    # УВАГА: частіший розклад НЕ усуває пропуски — GitHub однаково відкидає
+    # частину задач із черги. Він лише збільшує кількість спроб, з яких
+    # частина виживе. Стійкість до пропусків забезпечує сам scraper.py.
+    - cron: "3,18,33,48 * * * *"
+  workflow_dispatch:      # кнопка ручного запуску в інтерфейсі
+
+permissions:
+  contents: write         # без цього git push впаде з помилкою 403
+
+concurrency:
+  group: scrape-uz
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Забрати репозиторій
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # повна історія: без цього git pull --rebase ламається
+
+      - name: Поставити Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Встановити залежності
+        # Версії закріплені навмисно: незакріплений pip install щоразу тягне
+        # найсвіжіший пакет, і скомпрометований реліз виконався б у цьому
+        # репозиторії з токеном на запис.
+        run: pip install --quiet requests==2.32.3 beautifulsoup4==4.12.3 tzdata==2024.1
+
+      - name: Зібрати дані
+        run: python scraper.py
+
+      - name: Закомітити зміни
+        # Гілка передається через змінну оточення, а не підстановкою
+        # ${{ }} прямо в текст скрипта — так значення не може стати кодом.
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "uz-delay-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Спершу підтягуємо чужі зміни, потім комітимо свої.
+          # Так дані запуску не втрачаються через конфлікт при push.
+          git pull --rebase --autostash origin "$BRANCH"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "Змін немає, коміт не потрібен"
+            exit 0
+          fi
+          git commit -m "data: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push origin "HEAD:$BRANCH"

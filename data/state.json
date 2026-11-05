@@ -1,5 +1,5 @@
 {
-"last_run_epoch": 1793901789.909277,
+"last_run_epoch": 1793902636.54447,
 "tracks": {
 "1/2|РАХІВ": [
 {
@@ -9,7 +9,7 @@
 "instance_id": "1/2|РАХІВ@20261105-0603",
 "last_seen_epoch": 1793872968.351657,
 "main": "01b176484365c599",
-"missed_runs": 31,
+"missed_runs": 32,
 "n_stops": 15,
 "passed_count": 14,
 "stop_hashes": {
@@ -39,7 +39,7 @@
 "instance_id": "1/2|ХАРКІВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793883793.706888,
 "main": "c8acde85cb18f73a",
-"missed_runs": 18,
+"missed_runs": 19,
 "n_stops": 15,
 "passed_count": 13,
 "stop_hashes": {
@@ -69,7 +69,7 @@
 "instance_id": "103/104|БЕРЕСТИН@20261105-0603",
 "last_seen_epoch": 1793858587.952475,
 "main": "482ef52866f502e5",
-"missed_runs": 47,
+"missed_runs": 48,
 "n_stops": 17,
 "passed_count": 15,
 "stop_hashes": {
@@ -101,7 +101,7 @@
 "instance_id": "103/104|ЛЬВІВ@20261105-0603",
 "last_seen_epoch": 1793881956.241287,
 "main": "35a60d9d2e99a20f",
-"missed_runs": 20,
+"missed_runs": 21,
 "n_stops": 17,
 "passed_count": 17,
 "stop_hashes": {
@@ -133,7 +133,7 @@
 "instance_id": "105/106|ОДЕСА-ГОЛОВНА@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "3b436909f8cbb291",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 12,
 "passed_count": 11,
 "stop_hashes": {
@@ -160,7 +160,7 @@
 "instance_id": "109/110|ЛЬВІВ@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "dcc1cc7efb6ac59b",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 28,
 "passed_count": 20,
 "stop_hashes": {
@@ -201,7 +201,7 @@
 "delay_min": 40,
 "departure_date": "05.11",
 "instance_id": "109/110|МИКОЛАЇВ ПАС.@20261105-1832",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "d3059195d8aab9da",
 "missed_runs": 0,
 "n_stops": 27,
@@ -245,7 +245,7 @@
 "instance_id": "11/12|ЛЬВІВ@20261105-0703",
 "last_seen_epoch": 1793857654.272798,
 "main": "95a7ad3d826e2b0a",
-"missed_runs": 48,
+"missed_runs": 49,
 "n_stops": 13,
 "passed_count": 12,
 "stop_hashes": {
@@ -273,7 +273,7 @@
 "instance_id": "113/114|ХАРКІВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793862186.190069,
 "main": "69f82809d7acbfe6",
-"missed_runs": 43,
+"missed_runs": 44,
 "n_stops": 40,
 "passed_count": 29,
 "stop_hashes": {
@@ -328,7 +328,7 @@
 "instance_id": "119/120|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "166ae0464001c621",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 13,
 "passed_count": 10,
 "stop_hashes": {
@@ -346,6 +346,18 @@
 "8": "8a31388efd9ce46e",
 "9": "17a120b5797366a6"
 }
+},
+{
+"absent_since": 0,
+"delay_min": 60,
+"departure_date": "05.11",
+"instance_id": "119/120|ДНІПРО-ГОЛОВНИЙ@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "bb0ffb29c427dfb0",
+"missed_runs": 0,
+"n_stops": 0,
+"passed_count": 0,
+"stop_hashes": {}
 }
 ],
 "119/120|ХЕЛМ": [
@@ -356,7 +368,7 @@
 "instance_id": "119/120|ХЕЛМ@20261105-0603",
 "last_seen_epoch": 1793868430.614458,
 "main": "72ed710ee60d52e7",
-"missed_runs": 36,
+"missed_runs": 37,
 "n_stops": 16,
 "passed_count": 16,
 "stop_hashes": {
@@ -379,29 +391,30 @@
 }
 },
 {
-"absent_since": 1793896337.503708,
-"delay_min": 27,
+"absent_since": 0,
+"delay_min": 55,
 "departure_date": "05.11",
 "instance_id": "119/120|ХЕЛМ@20261105-1447",
-"last_seen_epoch": 1793893610.706125,
-"main": "4dd0fc05195cc053",
-"missed_runs": 7,
-"n_stops": 13,
-"passed_count": 4,
+"last_seen_epoch": 1793902636.54447,
+"main": "6ba3ef12139afdb7",
+"missed_runs": 0,
+"n_stops": 14,
+"passed_count": 6,
 "stop_hashes": {
 "0": "d81880d5a5974a9b",
 "1": "a9216de3af1650b7",
-"10": "86606326af70304f",
-"11": "158696112396f6aa",
-"12": "453a66766b173d97",
+"10": "e1dad9612420db80",
+"11": "ad6e0cd6a2603ec3",
+"12": "95e8ee279be5f4d5",
+"13": "328ac3996421c0d2",
 "2": "10173b94dd2d2c67",
 "3": "715168bed3e88fa3",
-"4": "15fda6d69456cc45",
-"5": "c09aa9a06136fbef",
-"6": "940ed8b8b249a3a3",
-"7": "29d3bb38a6f3784b",
-"8": "36d2d7c380de7885",
-"9": "7f9e1161f17562ba"
+"4": "2e87b3dd4884bdc5",
+"5": "06e51f1d8d5f5ac9",
+"6": "5bbc8ba4f43140e2",
+"7": "292e26ebe1bdb5d1",
+"8": "00a629d4bea5609e",
+"9": "2bde50150b1c7bbb"
 }
 }
 ],
@@ -413,7 +426,7 @@
 "instance_id": "121/122|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "dcc1cc7efb6ac59b",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 17,
 "passed_count": 9,
 "stop_hashes": {
@@ -445,7 +458,7 @@
 "instance_id": "121/122|МИКОЛАЇВ ПАС.@20261105-0603",
 "last_seen_epoch": 1793858587.952475,
 "main": "a57083401a88712b",
-"missed_runs": 47,
+"missed_runs": 48,
 "n_stops": 20,
 "passed_count": 19,
 "stop_hashes": {
@@ -476,7 +489,7 @@
 "delay_min": 40,
 "departure_date": "05.11",
 "instance_id": "121/122|МИКОЛАЇВ ПАС.@20261105-1832",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "9f767e329a064db0",
 "missed_runs": 0,
 "n_stops": 19,
@@ -512,7 +525,7 @@
 "instance_id": "129/130|МУКАЧЕВО@20261105-0603",
 "last_seen_epoch": 1793881031.887835,
 "main": "535af084cd958715",
-"missed_runs": 21,
+"missed_runs": 22,
 "n_stops": 22,
 "passed_count": 22,
 "stop_hashes": {
@@ -549,7 +562,7 @@
 "instance_id": "131/132|МУКАЧЕВО@20261105-0603",
 "last_seen_epoch": 1793872968.351657,
 "main": "84185712e27684ba",
-"missed_runs": 31,
+"missed_runs": 32,
 "n_stops": 21,
 "passed_count": 19,
 "stop_hashes": {
@@ -585,7 +598,7 @@
 "instance_id": "137/138|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793862186.190069,
 "main": "f308724d52bcbe5f",
-"missed_runs": 43,
+"missed_runs": 44,
 "n_stops": 19,
 "passed_count": 17,
 "stop_hashes": {
@@ -619,7 +632,7 @@
 "instance_id": "141/142|ЧЕРНІГІВ@20261105-0603",
 "last_seen_epoch": 1793862186.190069,
 "main": "30c152c6d28d8355",
-"missed_runs": 43,
+"missed_runs": 44,
 "n_stops": 23,
 "passed_count": 21,
 "stop_hashes": {
@@ -657,7 +670,7 @@
 "instance_id": "143/144|РАХІВ@20261105-0603",
 "last_seen_epoch": 1793851384.402388,
 "main": "749772e9982b4be3",
-"missed_runs": 55,
+"missed_runs": 56,
 "n_stops": 22,
 "passed_count": 17,
 "stop_hashes": {
@@ -687,11 +700,11 @@
 },
 {
 "absent_since": 0,
-"delay_min": 28,
+"delay_min": 27,
 "departure_date": "",
 "instance_id": "143/144|РАХІВ@20261105-1617",
-"last_seen_epoch": 1793901789.909277,
-"main": "b02613e0d5deb20d",
+"last_seen_epoch": 1793902636.54447,
+"main": "6203b0cacbeb04af",
 "missed_runs": 0,
 "n_stops": 22,
 "passed_count": 11,
@@ -699,18 +712,18 @@
 "0": "834ee510cc0ab126",
 "1": "f17ace9538137a72",
 "10": "021bbca66551df70",
-"11": "55bb0061be0c0372",
-"12": "a8efc57a93f05840",
-"13": "1dddfd40c53ce951",
-"14": "ffe307c581d74353",
-"15": "edb7c211bcb80cc8",
-"16": "9a6230023af49018",
-"17": "d3559fc99286bab4",
-"18": "7eb9d30a6c1e7430",
-"19": "f084b0b975db2a51",
+"11": "bdf40c8cf8f89e38",
+"12": "42753b09225247b0",
+"13": "d848eb4933017753",
+"14": "7db33e7ad05bb8e2",
+"15": "37fee6d8c368c574",
+"16": "950efe901e7bfe0f",
+"17": "9b462e7fd04f957f",
+"18": "393a4fb328360f9d",
+"19": "6fb52c68c53e0d9f",
 "2": "97ad32040e5c1613",
-"20": "2397d128b89942b8",
-"21": "b2b95df7c6a29e9b",
+"20": "2d301d6bbfb5ba3f",
+"21": "f8a75f077cd9aea4",
 "3": "e77745aace986e9c",
 "4": "f313207273bb2c4d",
 "5": "671630a74ddff0ce",
@@ -729,7 +742,7 @@
 "instance_id": "15/16|ІВАНО-ФРАНКІВСЬК@20261105-0603",
 "last_seen_epoch": 1793864856.423786,
 "main": "08f0e52a16147495",
-"missed_runs": 40,
+"missed_runs": 41,
 "n_stops": 9,
 "passed_count": 9,
 "stop_hashes": {
@@ -751,7 +764,7 @@
 "delay_min": 60,
 "departure_date": "",
 "instance_id": "17/18|УЖГОРОД@20261105-1517",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "336963146b713ed7",
 "missed_runs": 0,
 "n_stops": 11,
@@ -779,7 +792,7 @@
 "instance_id": "17/18|ХАРКІВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793875652.105372,
 "main": "731dbe8bf5891795",
-"missed_runs": 28,
+"missed_runs": 29,
 "n_stops": 11,
 "passed_count": 10,
 "stop_hashes": {
@@ -805,7 +818,7 @@
 "instance_id": "19/20|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793857654.272798,
 "main": "3da3a15d60cf8c90",
-"missed_runs": 48,
+"missed_runs": 49,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -817,7 +830,7 @@
 "instance_id": "19/20|КИЇВ-ПАС.@20261105-1832",
 "last_seen_epoch": 1793897255.525086,
 "main": "15ea29335f85f29a",
-"missed_runs": 5,
+"missed_runs": 6,
 "n_stops": 3,
 "passed_count": 0,
 "stop_hashes": {
@@ -835,7 +848,7 @@
 "instance_id": "19/20|ХЕЛМ@20261105-0603",
 "last_seen_epoch": 1793880189.350121,
 "main": "c73bfdcf94c7fa5d",
-"missed_runs": 22,
+"missed_runs": 23,
 "n_stops": 4,
 "passed_count": 4,
 "stop_hashes": {
@@ -854,7 +867,7 @@
 "instance_id": "21/22|ЛЬВІВ@20261105-0603",
 "last_seen_epoch": 1793866653.290728,
 "main": "44ce052afc3b85fd",
-"missed_runs": 38,
+"missed_runs": 39,
 "n_stops": 15,
 "passed_count": 15,
 "stop_hashes": {
@@ -884,7 +897,7 @@
 "instance_id": "21/22|ХАРКІВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793880189.350121,
 "main": "a7922688587711db",
-"missed_runs": 22,
+"missed_runs": 23,
 "n_stops": 15,
 "passed_count": 14,
 "stop_hashes": {
@@ -914,7 +927,7 @@
 "instance_id": "23/24|КИЇВ-ПАС.@20261105-0617",
 "last_seen_epoch": 1793870262.095336,
 "main": "df6a073de21d0eb9",
-"missed_runs": 34,
+"missed_runs": 35,
 "n_stops": 5,
 "passed_count": 4,
 "stop_hashes": {
@@ -934,7 +947,7 @@
 "instance_id": "23/24|ХЕЛМ@20261105-0603",
 "last_seen_epoch": 1793872053.668391,
 "main": "010bd263861a46e1",
-"missed_runs": 32,
+"missed_runs": 33,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -948,7 +961,7 @@
 "instance_id": "233/234|ІВАНО-ФРАНКІВСЬК@20261105-0603",
 "last_seen_epoch": 1793866653.290728,
 "main": "def3222bbbfe21bb",
-"missed_runs": 38,
+"missed_runs": 39,
 "n_stops": 6,
 "passed_count": 5,
 "stop_hashes": {
@@ -969,7 +982,7 @@
 "instance_id": "25/26|ЯСІНЯ@20261105-1633",
 "last_seen_epoch": 1793890068.66843,
 "main": "8fdc636c7d638ab0",
-"missed_runs": 11,
+"missed_runs": 12,
 "n_stops": 25,
 "passed_count": 5,
 "stop_hashes": {
@@ -1009,7 +1022,7 @@
 "instance_id": "261/262|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793888257.821662,
 "main": "2428a96b9ebcc743",
-"missed_runs": 13,
+"missed_runs": 14,
 "n_stops": 17,
 "passed_count": 16,
 "stop_hashes": {
@@ -1041,7 +1054,7 @@
 "instance_id": "27/28|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "53a67119e3a89bba",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 4,
 "passed_count": 3,
 "stop_hashes": {
@@ -1060,7 +1073,7 @@
 "instance_id": "27/28|ЧОП@20261105-0603",
 "last_seen_epoch": 1793869390.040336,
 "main": "9d0bdbfd5b3f196d",
-"missed_runs": 35,
+"missed_runs": 36,
 "n_stops": 5,
 "passed_count": 4,
 "stop_hashes": {
@@ -1080,7 +1093,7 @@
 "instance_id": "29/30|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793851384.402388,
 "main": "dc3544d29d31137b",
-"missed_runs": 55,
+"missed_runs": 56,
 "n_stops": 6,
 "passed_count": 2,
 "stop_hashes": {
@@ -1101,7 +1114,7 @@
 "instance_id": "293/294|РАХІВ@20261105-0603",
 "last_seen_epoch": 1793866653.290728,
 "main": "def3222bbbfe21bb",
-"missed_runs": 38,
+"missed_runs": 39,
 "n_stops": 14,
 "passed_count": 13,
 "stop_hashes": {
@@ -1130,7 +1143,7 @@
 "instance_id": "3/4|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "0bfe29044593a024",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 16,
 "passed_count": 9,
 "stop_hashes": {
@@ -1151,6 +1164,34 @@
 "8": "3b34a4a21e021f34",
 "9": "dff8ef8fe475ac0f"
 }
+},
+{
+"absent_since": 0,
+"delay_min": 55,
+"departure_date": "",
+"instance_id": "3/4|ДНІПРО-ГОЛОВНИЙ@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "d13bc2dd50feb385",
+"missed_runs": 0,
+"n_stops": 15,
+"passed_count": 1,
+"stop_hashes": {
+"0": "d9425312daf6dd59",
+"1": "7dc9b19986eb18ec",
+"10": "e604ac47cabb6e2b",
+"11": "371fb69a726ea7cc",
+"12": "17190a83873efa57",
+"13": "944e78d7bac6fe76",
+"14": "30c7d743ae428047",
+"2": "d0443e5a30222113",
+"3": "ab92fb23d9456971",
+"4": "287a1647870cd7af",
+"5": "7c60b80acedb8eb9",
+"6": "fc88fe98c447b991",
+"7": "d145c8d62ef944ab",
+"8": "de1e1c54518b3309",
+"9": "fe5c2192320bc082"
+}
 }
 ],
 "3/4|УЖГОРОД": [
@@ -1161,7 +1202,7 @@
 "instance_id": "3/4|УЖГОРОД@20261105-0603",
 "last_seen_epoch": 1793867573.684494,
 "main": "a07e95fbbc160a3c",
-"missed_runs": 37,
+"missed_runs": 38,
 "n_stops": 17,
 "passed_count": 16,
 "stop_hashes": {
@@ -1189,7 +1230,7 @@
 "delay_min": 47,
 "departure_date": "",
 "instance_id": "3/4|УЖГОРОД@20261105-1832",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "9d96dfbf2ca1ef33",
 "missed_runs": 0,
 "n_stops": 16,
@@ -1222,7 +1263,7 @@
 "instance_id": "31/32|ПЕРЕМИШЛЬ@20261105-0603",
 "last_seen_epoch": 1793863948.467342,
 "main": "0a5c0c3378dfb258",
-"missed_runs": 41,
+"missed_runs": 42,
 "n_stops": 7,
 "passed_count": 6,
 "stop_hashes": {
@@ -1244,7 +1285,7 @@
 "instance_id": "35/36|ПЕРЕМИШЛЬ@20261105-0717",
 "last_seen_epoch": 1793857654.272798,
 "main": "95a7ad3d826e2b0a",
-"missed_runs": 48,
+"missed_runs": 49,
 "n_stops": 14,
 "passed_count": 13,
 "stop_hashes": {
@@ -1271,7 +1312,7 @@
 "delay_min": 120,
 "departure_date": "05.11",
 "instance_id": "353/354|КИЇВ-ПАС.@20261105-1647",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "c0adc9dc23e9beee",
 "missed_runs": 0,
 "n_stops": 10,
@@ -1298,7 +1339,7 @@
 "instance_id": "37/38|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793855851.766428,
 "main": "bc4dc2133853d8f3",
-"missed_runs": 50,
+"missed_runs": 51,
 "n_stops": 10,
 "passed_count": 9,
 "stop_hashes": {
@@ -1313,6 +1354,18 @@
 "8": "8a31388efd9ce46e",
 "9": "96c22e2c021f5f62"
 }
+},
+{
+"absent_since": 0,
+"delay_min": 60,
+"departure_date": "05.11",
+"instance_id": "37/38|ДНІПРО-ГОЛОВНИЙ@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "5ffc8c9afebdf37c",
+"missed_runs": 0,
+"n_stops": 0,
+"passed_count": 0,
+"stop_hashes": {}
 }
 ],
 "37/38|КИЇВ-ПАС.": [
@@ -1323,7 +1376,7 @@
 "instance_id": "37/38|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793866653.290728,
 "main": "33a3a9f68d7bb113",
-"missed_runs": 38,
+"missed_runs": 39,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -1335,7 +1388,7 @@
 "instance_id": "37/38|КИЇВ-ПАС.@20261105-1032",
 "last_seen_epoch": 1793868430.614458,
 "main": "72ed710ee60d52e7",
-"missed_runs": 36,
+"missed_runs": 37,
 "n_stops": 11,
 "passed_count": 11,
 "stop_hashes": {
@@ -1361,7 +1414,7 @@
 "instance_id": "37/38|ОДЕСА-ГОЛОВНА@20261105-0817",
 "last_seen_epoch": 1793876588.526069,
 "main": "59842d36d6863c52",
-"missed_runs": 27,
+"missed_runs": 28,
 "n_stops": 25,
 "passed_count": 24,
 "stop_hashes": {
@@ -1399,7 +1452,7 @@
 "delay_min": 55,
 "departure_date": "",
 "instance_id": "37/38|УЖГОРОД@20261105-1447",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "1705584b28729537",
 "missed_runs": 0,
 "n_stops": 24,
@@ -1438,7 +1491,7 @@
 "delay_min": 50,
 "departure_date": "05.11",
 "instance_id": "39/40|ДНІПРО-ГОЛОВНИЙ@20261105-1332",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "ae28d0d60968e90b",
 "missed_runs": 0,
 "n_stops": 26,
@@ -1481,7 +1534,7 @@
 "instance_id": "39/40|СОЛОТВИНО-1@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "ce3d77ff5ef1e467",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 31,
 "passed_count": 28,
 "stop_hashes": {
@@ -1527,7 +1580,7 @@
 "instance_id": "41/42|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793891859.81185,
 "main": "5f93bba6b0abf196",
-"missed_runs": 9,
+"missed_runs": 10,
 "n_stops": 32,
 "passed_count": 32,
 "stop_hashes": {
@@ -1570,11 +1623,11 @@
 "delay_min": 60,
 "departure_date": "05.11",
 "instance_id": "41/42|ДНІПРО-ГОЛОВНИЙ@20261105-1447",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "e71c7da333cf9727",
 "missed_runs": 0,
 "n_stops": 31,
-"passed_count": 8,
+"passed_count": 9,
 "stop_hashes": {
 "0": "f560035f1c2efeb5",
 "1": "6ebd1c694bfa79d8",
@@ -1605,7 +1658,7 @@
 "5": "827877c25bf80c78",
 "6": "007313a6840ee3ec",
 "7": "5ba66e6942d744d1",
-"8": "04b5f624a348d805",
+"8": "1a13d5884c087657",
 "9": "a7a82b5ea7b53b5f"
 }
 }
@@ -1618,7 +1671,7 @@
 "instance_id": "41/42|ТРУСКАВЕЦЬ@20261105-0603",
 "last_seen_epoch": 1793872053.668391,
 "main": "e79f2f30f5bdbeb8",
-"missed_runs": 32,
+"missed_runs": 33,
 "n_stops": 31,
 "passed_count": 31,
 "stop_hashes": {
@@ -1660,11 +1713,11 @@
 "delay_min": 90,
 "departure_date": "",
 "instance_id": "41/42|ТРУСКАВЕЦЬ@20261105-1733",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "e2f5afc76efd243f",
 "missed_runs": 0,
 "n_stops": 29,
-"passed_count": 6,
+"passed_count": 7,
 "stop_hashes": {
 "0": "647157c6629d6e7a",
 "1": "f30be17a663bd331",
@@ -1691,7 +1744,7 @@
 "3": "23e79b6cceb64d61",
 "4": "29d62dfb54118f4b",
 "5": "e17cd650454a4ae1",
-"6": "f6134af1e36230ef",
+"6": "d255bd028c3207ef",
 "7": "e4d9286877f6b415",
 "8": "fd35a23920c97856",
 "9": "230ca5ee54cd9d78"
@@ -1706,7 +1759,7 @@
 "instance_id": "43/44|ІВАНО-ФРАНКІВСЬК@20261105-0632",
 "last_seen_epoch": 1793870262.095336,
 "main": "ff03aa234cdadc43",
-"missed_runs": 34,
+"missed_runs": 35,
 "n_stops": 14,
 "passed_count": 14,
 "stop_hashes": {
@@ -1735,7 +1788,7 @@
 "instance_id": "43/44|ЧЕРКАСИ@20261105-0603",
 "last_seen_epoch": 1793867573.684494,
 "main": "917a45cb54de0993",
-"missed_runs": 37,
+"missed_runs": 38,
 "n_stops": 15,
 "passed_count": 14,
 "stop_hashes": {
@@ -1760,11 +1813,11 @@
 "45/46|УЖГОРОД": [
 {
 "absent_since": 0,
-"delay_min": 105,
+"delay_min": 100,
 "departure_date": "",
 "instance_id": "45/46|УЖГОРОД@20261105-0617",
-"last_seen_epoch": 1793901789.909277,
-"main": "8063e54896b2044c",
+"last_seen_epoch": 1793902636.54447,
+"main": "73c497bc4542bd36",
 "missed_runs": 0,
 "n_stops": 25,
 "passed_count": 23,
@@ -1785,8 +1838,8 @@
 "20": "832c45b8a7eeb971",
 "21": "17155373ddec9b1c",
 "22": "fb5eb23c993277cd",
-"23": "a0cd706a4c4055ad",
-"24": "674ee3139e957432",
+"23": "937634da3f73c2f1",
+"24": "931b09e5fcc93d41",
 "3": "30a14aa2682dba91",
 "4": "efa29d2cfd85889f",
 "5": "fbba8130322efe91",
@@ -1803,7 +1856,7 @@
 "delay_min": 60,
 "departure_date": "",
 "instance_id": "45/46|ХАРКІВ-ПАС.@20261105-1303",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "7cd6d9b4b78d7fbc",
 "missed_runs": 0,
 "n_stops": 23,
@@ -1843,7 +1896,7 @@
 "instance_id": "49/50|ТРУСКАВЕЦЬ@20261105-0603",
 "last_seen_epoch": 1793863948.467342,
 "main": "e2d7e3532b484ae5",
-"missed_runs": 41,
+"missed_runs": 42,
 "n_stops": 9,
 "passed_count": 8,
 "stop_hashes": {
@@ -1867,7 +1920,7 @@
 "instance_id": "5/6|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793881956.241287,
 "main": "d7d8ca7adbb82dce",
-"missed_runs": 20,
+"missed_runs": 21,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -1877,7 +1930,7 @@
 "delay_min": 50,
 "departure_date": "05.11",
 "instance_id": "5/6|ДНІПРО-ГОЛОВНИЙ@20261105-1332",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "447a84aa96ac3b0a",
 "missed_runs": 0,
 "n_stops": 14,
@@ -1908,7 +1961,7 @@
 "instance_id": "5/6|ЯСІНЯ@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "ce3d77ff5ef1e467",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 20,
 "passed_count": 17,
 "stop_hashes": {
@@ -1936,32 +1989,32 @@
 },
 {
 "absent_since": 0,
-"delay_min": 50,
+"delay_min": 45,
 "departure_date": "",
 "instance_id": "5/6|ЯСІНЯ@20261105-1832",
-"last_seen_epoch": 1793901789.909277,
-"main": "de3adb5a27df0cd1",
+"last_seen_epoch": 1793902636.54447,
+"main": "faa67b526ce2337a",
 "missed_runs": 0,
 "n_stops": 17,
 "passed_count": 6,
 "stop_hashes": {
 "0": "2bc4f67c7ac09540",
 "1": "e25a16cb34160a26",
-"10": "f8e1404c08db8235",
-"11": "7e522d7c36a11b53",
-"12": "932a3962f206bad6",
-"13": "e5afdc0d5028d96e",
-"14": "5dad929c3a26882c",
-"15": "bceaea53b929f49c",
-"16": "2a289177faa7a0f4",
+"10": "6d1dee0b1ca9bc05",
+"11": "82cb26ab94f54d2c",
+"12": "9c5589af0c014bc4",
+"13": "4bc428b84f99ce82",
+"14": "528bcda82e7d9856",
+"15": "ecaa9afff43deaa2",
+"16": "443dc51724985bcd",
 "2": "9c4ad3c1a8ae9b97",
 "3": "deeab507e0656cf0",
 "4": "f89f55e39298eb21",
 "5": "8caf2b3bf61a16d0",
-"6": "6f1ef0034891aa07",
-"7": "66650c3087888b1a",
-"8": "36e4e636c880ba09",
-"9": "9d8f1edc61c4c033"
+"6": "211c72d24a97393c",
+"7": "488a964053ee5528",
+"8": "2118a12994d7facc",
+"9": "7e2262c95a624f73"
 }
 }
 ],
@@ -1973,7 +2026,7 @@
 "instance_id": "51/52|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793854988.141801,
 "main": "d490a3e49c1921a9",
-"missed_runs": 51,
+"missed_runs": 52,
 "n_stops": 3,
 "passed_count": 2,
 "stop_hashes": {
@@ -1991,7 +2044,7 @@
 "instance_id": "51/52|ПЕРЕМИШЛЬ@20261105-0603",
 "last_seen_epoch": 1793851384.402388,
 "main": "68558823938fdab1",
-"missed_runs": 55,
+"missed_runs": 56,
 "n_stops": 3,
 "passed_count": 2,
 "stop_hashes": {
@@ -2009,7 +2062,7 @@
 "instance_id": "53/54|ОДЕСА-ГОЛОВНА@20261105-1003",
 "last_seen_epoch": 1793865787.28192,
 "main": "221183aaca7a689d",
-"missed_runs": 39,
+"missed_runs": 40,
 "n_stops": 12,
 "passed_count": 11,
 "stop_hashes": {
@@ -2036,7 +2089,7 @@
 "instance_id": "55/56|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793860370.442149,
 "main": "8bfc04cbae662200",
-"missed_runs": 45,
+"missed_runs": 46,
 "n_stops": 22,
 "passed_count": 20,
 "stop_hashes": {
@@ -2073,7 +2126,7 @@
 "instance_id": "55/56|РАХІВ@20261105-0747",
 "last_seen_epoch": 1793861249.302322,
 "main": "5d4227f9a4491d7e",
-"missed_runs": 44,
+"missed_runs": 45,
 "n_stops": 19,
 "passed_count": 18,
 "stop_hashes": {
@@ -2107,7 +2160,7 @@
 "instance_id": "57/58|ЯСІНЯ@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "fc9524c9e6a83738",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 20,
 "passed_count": 19,
 "stop_hashes": {
@@ -2142,7 +2195,7 @@
 "instance_id": "59/60|ЧОП@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "fc9524c9e6a83738",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 22,
 "passed_count": 21,
 "stop_hashes": {
@@ -2179,7 +2232,7 @@
 "instance_id": "61/62|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793888257.821662,
 "main": "2428a96b9ebcc743",
-"missed_runs": 13,
+"missed_runs": 14,
 "n_stops": 17,
 "passed_count": 16,
 "stop_hashes": {
@@ -2209,7 +2262,7 @@
 "delay_min": 70,
 "departure_date": "",
 "instance_id": "63/64|ПЕРЕМИШЛЬ@20261105-1417",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "8b34514262c1a759",
 "missed_runs": 0,
 "n_stops": 11,
@@ -2237,7 +2290,7 @@
 "instance_id": "67/68|ВАРШАВА ЗАХОДНЯ@20261105-0603",
 "last_seen_epoch": 1793872053.668391,
 "main": "baade14a01748471",
-"missed_runs": 32,
+"missed_runs": 33,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -2251,7 +2304,7 @@
 "instance_id": "67/68|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793872968.351657,
 "main": "7a013b36aa0d8d8d",
-"missed_runs": 31,
+"missed_runs": 32,
 "n_stops": 4,
 "passed_count": 3,
 "stop_hashes": {
@@ -2268,7 +2321,7 @@
 "instance_id": "67/68|КИЇВ-ПАС.@20261105-1832",
 "last_seen_epoch": 1793897255.525086,
 "main": "3877a27945672c9f",
-"missed_runs": 5,
+"missed_runs": 6,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -2282,7 +2335,7 @@
 "instance_id": "7/8|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793858587.952475,
 "main": "6d72cd1e8d1d181d",
-"missed_runs": 47,
+"missed_runs": 48,
 "n_stops": 5,
 "passed_count": 4,
 "stop_hashes": {
@@ -2302,7 +2355,7 @@
 "instance_id": "7/8|ЧЕРНІВЦІ@20261105-0603",
 "last_seen_epoch": 1793859431.054427,
 "main": "297cb620ebaff064",
-"missed_runs": 46,
+"missed_runs": 47,
 "n_stops": 5,
 "passed_count": 5,
 "stop_hashes": {
@@ -2322,7 +2375,7 @@
 "instance_id": "705/706|ПЕРЕМИШЛЬ@20261105-1003",
 "last_seen_epoch": 1793884632.170015,
 "main": "00f4ab077ab9cc7c",
-"missed_runs": 17,
+"missed_runs": 18,
 "n_stops": 7,
 "passed_count": 4,
 "stop_hashes": {
@@ -2344,7 +2397,7 @@
 "instance_id": "721/722|КИЇВ-ПАС.@20261105-1202",
 "last_seen_epoch": 1793882833.798439,
 "main": "8ad361eb20cd16ba",
-"missed_runs": 19,
+"missed_runs": 20,
 "n_stops": 8,
 "passed_count": 7,
 "stop_hashes": {
@@ -2367,7 +2420,7 @@
 "instance_id": "725/726|ХАРКІВ-ПАС.@20261105-1103",
 "last_seen_epoch": 1793876588.526069,
 "main": "8bbf7e57681f6a9c",
-"missed_runs": 27,
+"missed_runs": 28,
 "n_stops": 7,
 "passed_count": 6,
 "stop_hashes": {
@@ -2389,7 +2442,7 @@
 "instance_id": "73/74|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793856769.372418,
 "main": "fb457424db60a099",
-"missed_runs": 49,
+"missed_runs": 50,
 "n_stops": 11,
 "passed_count": 9,
 "stop_hashes": {
@@ -2405,6 +2458,29 @@
 "8": "3b34a4a21e021f34",
 "9": "dff8ef8fe475ac0f"
 }
+},
+{
+"absent_since": 0,
+"delay_min": 55,
+"departure_date": "",
+"instance_id": "73/74|ДНІПРО-ГОЛОВНИЙ@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "221d23d17738b56f",
+"missed_runs": 0,
+"n_stops": 10,
+"passed_count": 1,
+"stop_hashes": {
+"0": "d9425312daf6dd59",
+"1": "7dc9b19986eb18ec",
+"2": "d0443e5a30222113",
+"3": "ab92fb23d9456971",
+"4": "287a1647870cd7af",
+"5": "7c60b80acedb8eb9",
+"6": "fc88fe98c447b991",
+"7": "d145c8d62ef944ab",
+"8": "de1e1c54518b3309",
+"9": "561918796cd751a7"
+}
 }
 ],
 "73/74|ПЕРЕМИШЛЬ": [
@@ -2415,7 +2491,7 @@
 "instance_id": "73/74|ПЕРЕМИШЛЬ@20261105-0603",
 "last_seen_epoch": 1793867573.684494,
 "main": "0b17ffdfd8fcddc4",
-"missed_runs": 37,
+"missed_runs": 38,
 "n_stops": 12,
 "passed_count": 11,
 "stop_hashes": {
@@ -2438,7 +2514,7 @@
 "delay_min": 47,
 "departure_date": "",
 "instance_id": "73/74|ПЕРЕМИШЛЬ@20261105-1733",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "9d96dfbf2ca1ef33",
 "missed_runs": 0,
 "n_stops": 9,
@@ -2462,7 +2538,7 @@
 "delay_min": 60,
 "departure_date": "",
 "instance_id": "731/732|ДНІПРО-ГОЛОВНИЙ@20261105-1832",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "c6683306b12978ef",
 "missed_runs": 0,
 "n_stops": 8,
@@ -2479,6 +2555,30 @@
 }
 }
 ],
+"733/734|КИЇВ-ПАС.": [
+{
+"absent_since": 0,
+"delay_min": 44,
+"departure_date": "",
+"instance_id": "733/734|КИЇВ-ПАС.@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "06a3b477c12d6786",
+"missed_runs": 0,
+"n_stops": 9,
+"passed_count": 4,
+"stop_hashes": {
+"0": "985505648525ed11",
+"1": "17ddda836a298946",
+"2": "ef1aa36f75866637",
+"3": "1474da3516fc1070",
+"4": "61ed31b54a886356",
+"5": "0f4228ae07a89011",
+"6": "1c0a954e2b9235ac",
+"7": "cf68535a45112fdf",
+"8": "7b10ee2434e698e0"
+}
+}
+],
 "743/744|ДАРНИЦЯ": [
 {
 "absent_since": 1793881956.241287,
@@ -2487,7 +2587,7 @@
 "instance_id": "743/744|ДАРНИЦЯ@20261105-1332",
 "last_seen_epoch": 1793881031.887835,
 "main": "1652cc331c775b67",
-"missed_runs": 21,
+"missed_runs": 22,
 "n_stops": 7,
 "passed_count": 6,
 "stop_hashes": {
@@ -2501,6 +2601,28 @@
 }
 }
 ],
+"743/744|ТРУСКАВЕЦЬ": [
+{
+"absent_since": 0,
+"delay_min": 35,
+"departure_date": "",
+"instance_id": "743/744|ТРУСКАВЕЦЬ@20261105-2017",
+"last_seen_epoch": 1793902636.54447,
+"main": "b94d8044b00e3346",
+"missed_runs": 0,
+"n_stops": 7,
+"passed_count": 5,
+"stop_hashes": {
+"0": "647157c6629d6e7a",
+"1": "c495b01a0c9e68b1",
+"2": "e0d92120d9ae4ffd",
+"3": "0c33aa92efc824b9",
+"4": "7f6b6bd23b7204ac",
+"5": "10d5072e6b512613",
+"6": "20e7c3eabc274f26"
+}
+}
+],
 "747/748|ТЕРНОПІЛЬ-ПАС.": [
 {
 "absent_since": 1793890068.66843,
@@ -2509,7 +2631,7 @@
 "instance_id": "747/748|ТЕРНОПІЛЬ-ПАС.@20261105-1332",
 "last_seen_epoch": 1793889201.048537,
 "main": "7590444222db5581",
-"missed_runs": 12,
+"missed_runs": 13,
 "n_stops": 9,
 "passed_count": 8,
 "stop_hashes": {
@@ -2528,11 +2650,11 @@
 "749/750|КИЇВ-ПАС.": [
 {
 "absent_since": 0,
-"delay_min": 30,
+"delay_min": 40,
 "departure_date": "",
 "instance_id": "749/750|КИЇВ-ПАС.@20261105-1733",
-"last_seen_epoch": 1793901789.909277,
-"main": "b81abf252e78199f",
+"last_seen_epoch": 1793902636.54447,
+"main": "a8359433e16bdfed",
 "missed_runs": 0,
 "n_stops": 8,
 "passed_count": 3,
@@ -2540,11 +2662,11 @@
 "0": "985505648525ed11",
 "1": "7388ae5d744d5530",
 "2": "9f54cccbc83503b7",
-"3": "ce6e8f51aa206465",
-"4": "4b710cc1b503616a",
-"5": "033378d8998144e2",
-"6": "db8c9fce2c2ac456",
-"7": "64e96a08da589e3f"
+"3": "cd71061f9930a2d5",
+"4": "79afcdf989c4fd48",
+"5": "9e1d03de26fd9453",
+"6": "e411765bf4a8a448",
+"7": "b99cbc53301a513c"
 }
 }
 ],
@@ -2556,7 +2678,7 @@
 "instance_id": "749/750|УЖГОРОД@20261105-1733",
 "last_seen_epoch": 1793892783.89911,
 "main": "39c6e035b601d55f",
-"missed_runs": 8,
+"missed_runs": 9,
 "n_stops": 7,
 "passed_count": 6,
 "stop_hashes": {
@@ -2578,7 +2700,7 @@
 "instance_id": "75/76|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793858587.952475,
 "main": "f89a21792e67e61d",
-"missed_runs": 47,
+"missed_runs": 48,
 "n_stops": 9,
 "passed_count": 9,
 "stop_hashes": {
@@ -2602,7 +2724,7 @@
 "instance_id": "75/76|КРИВИЙ РІГ-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793854050.501725,
 "main": "a3b55c15437cff20",
-"missed_runs": 52,
+"missed_runs": 53,
 "n_stops": 7,
 "passed_count": 6,
 "stop_hashes": {
@@ -2624,7 +2746,7 @@
 "instance_id": "763/764|ОДЕСА-ГОЛОВНА@20261105-1147",
 "last_seen_epoch": 1793889201.048537,
 "main": "7590444222db5581",
-"missed_runs": 12,
+"missed_runs": 13,
 "n_stops": 9,
 "passed_count": 8,
 "stop_hashes": {
@@ -2648,7 +2770,7 @@
 "instance_id": "77/78|КОВЕЛЬ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793863053.834463,
 "main": "dacef516599686d8",
-"missed_runs": 42,
+"missed_runs": 43,
 "n_stops": 29,
 "passed_count": 28,
 "stop_hashes": {
@@ -2690,7 +2812,7 @@
 "delay_min": 27,
 "departure_date": "",
 "instance_id": "771/772|КИЇВ-ПАС.@20261105-1733",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "df8fc7953dc7fe33",
 "missed_runs": 0,
 "n_stops": 11,
@@ -2718,7 +2840,7 @@
 "instance_id": "771/772|ХМЕЛЬНИЦЬКИЙ@20261105-1547",
 "last_seen_epoch": 1793891859.81185,
 "main": "9a0ed94dab032652",
-"missed_runs": 9,
+"missed_runs": 10,
 "n_stops": 10,
 "passed_count": 8,
 "stop_hashes": {
@@ -2743,7 +2865,7 @@
 "instance_id": "773/774|ЖМЕРИНКА-ПАС.@20261105-1332",
 "last_seen_epoch": 1793885532.765869,
 "main": "b06545851144d4c0",
-"missed_runs": 16,
+"missed_runs": 17,
 "n_stops": 17,
 "passed_count": 17,
 "stop_hashes": {
@@ -2775,7 +2897,7 @@
 "instance_id": "81/82|КИЇВ-ПАС.@20261105-0747",
 "last_seen_epoch": 1793879205.508591,
 "main": "b6de6a52d0905611",
-"missed_runs": 23,
+"missed_runs": 24,
 "n_stops": 15,
 "passed_count": 15,
 "stop_hashes": {
@@ -2805,7 +2927,7 @@
 "instance_id": "81/82|УЖГОРОД@20261105-0603",
 "last_seen_epoch": 1793854988.141801,
 "main": "482f67779f594130",
-"missed_runs": 51,
+"missed_runs": 52,
 "n_stops": 12,
 "passed_count": 11,
 "stop_hashes": {
@@ -2832,7 +2954,7 @@
 "instance_id": "85/86|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793881956.241287,
 "main": "ec5e576a60a4d648",
-"missed_runs": 20,
+"missed_runs": 21,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -2842,11 +2964,11 @@
 "delay_min": 60,
 "departure_date": "05.11",
 "instance_id": "85/86|ДНІПРО-ГОЛОВНИЙ@20261105-1447",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "e4c938e18ab3d1e4",
 "missed_runs": 0,
 "n_stops": 29,
-"passed_count": 8,
+"passed_count": 9,
 "stop_hashes": {
 "0": "f560035f1c2efeb5",
 "1": "6ebd1c694bfa79d8",
@@ -2875,7 +2997,7 @@
 "5": "827877c25bf80c78",
 "6": "007313a6840ee3ec",
 "7": "5ba66e6942d744d1",
-"8": "04b5f624a348d805",
+"8": "1a13d5884c087657",
 "9": "a7a82b5ea7b53b5f"
 }
 }
@@ -2888,7 +3010,7 @@
 "instance_id": "85/86|ЛЬВІВ@20261105-0603",
 "last_seen_epoch": 1793872053.668391,
 "main": "e79f2f30f5bdbeb8",
-"missed_runs": 32,
+"missed_runs": 33,
 "n_stops": 29,
 "passed_count": 29,
 "stop_hashes": {
@@ -2928,11 +3050,11 @@
 "delay_min": 90,
 "departure_date": "",
 "instance_id": "85/86|ЛЬВІВ@20261105-1733",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "e2f5afc76efd243f",
 "missed_runs": 0,
 "n_stops": 27,
-"passed_count": 4,
+"passed_count": 5,
 "stop_hashes": {
 "0": "5e423892895c0719",
 "1": "543ccbda6f059880",
@@ -2955,7 +3077,7 @@
 "25": "8174cb0396b527fe",
 "26": "836109cd7a0d0a09",
 "3": "1a2832b581e0f9cf",
-"4": "e8c17504a85d84b0",
+"4": "baac59226e6b6bd5",
 "5": "f269a42fefc20b7f",
 "6": "f711c4f7f733af1e",
 "7": "18add2fce4943ff9",
@@ -2972,7 +3094,7 @@
 "instance_id": "87/88|ДНІПРО-ГОЛОВНИЙ@20261105-0603",
 "last_seen_epoch": 1793876588.526069,
 "main": "862cdf3e02e70da8",
-"missed_runs": 27,
+"missed_runs": 28,
 "n_stops": 32,
 "passed_count": 31,
 "stop_hashes": {
@@ -3017,7 +3139,7 @@
 "delay_min": 55,
 "departure_date": "",
 "instance_id": "9/10|БУДАПЕШТ-КЕЛЕТІ@20261105-1647",
-"last_seen_epoch": 1793901789.909277,
+"last_seen_epoch": 1793902636.54447,
 "main": "fa279fdbe17f085f",
 "missed_runs": 0,
 "n_stops": 6,
@@ -3040,7 +3162,7 @@
 "instance_id": "9/10|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793854988.141801,
 "main": "e6733bfeb0802962",
-"missed_runs": 51,
+"missed_runs": 52,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -3052,7 +3174,7 @@
 "instance_id": "9/10|КИЇВ-ПАС.@20261105-1832",
 "last_seen_epoch": 1793898220.601275,
 "main": "728a4c0091bab327",
-"missed_runs": 4,
+"missed_runs": 5,
 "n_stops": 4,
 "passed_count": 2,
 "stop_hashes": {
@@ -3071,7 +3193,7 @@
 "instance_id": "91/92|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793854988.141801,
 "main": "4fe51e88f80f0c9f",
-"missed_runs": 51,
+"missed_runs": 52,
 "n_stops": 4,
 "passed_count": 3,
 "stop_hashes": {
@@ -3090,7 +3212,7 @@
 "instance_id": "93/94|ХАРКІВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793878818.728624,
 "main": "7a08bdfe0958ca2b",
-"missed_runs": 24,
+"missed_runs": 25,
 "n_stops": 10,
 "passed_count": 9,
 "stop_hashes": {
@@ -3115,7 +3237,7 @@
 "instance_id": "93/94|ХЕЛМ@20261105-0603",
 "last_seen_epoch": 1793872053.668391,
 "main": "2de87e095eb9859b",
-"missed_runs": 32,
+"missed_runs": 33,
 "n_stops": 0,
 "passed_count": 0,
 "stop_hashes": {}
@@ -3129,7 +3251,7 @@
 "instance_id": "95/96|КИЇВ-ПАС.@20261105-0603",
 "last_seen_epoch": 1793864856.423786,
 "main": "9e23196500f240af",
-"missed_runs": 40,
+"missed_runs": 41,
 "n_stops": 10,
 "passed_count": 8,
 "stop_hashes": {
@@ -3154,7 +3276,7 @@
 "instance_id": "95/96|РАХІВ@20261105-0603",
 "last_seen_epoch": 1793869390.040336,
 "main": "9d0bdbfd5b3f196d",
-"missed_runs": 35,
+"missed_runs": 36,
 "n_stops": 10,
 "passed_count": 9,
 "stop_hashes": {
